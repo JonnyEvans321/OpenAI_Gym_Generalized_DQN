@@ -15,6 +15,12 @@ This is a fork of gsurma's repo, which was a DQN solution to the cartpole enviro
 * Created the function **find_input_shape** which finds the required shape of input layer of the neural network, based on the dimensionality of the observation space.
 * Created an exception which is called when the dimensionality of the action space is not discrete.
 
+### Other modifications from the original repo
+* Added batch normalization to the keras model in order to increase training speed (so some results could be found on my puny laptop)
+* Added a testing function that lets the user watch the agent play the game once with its trained policy
+* Created a method for the model to make a prediction for a given state called **predict**
+* Created the parameters NUM_EPISODES and WATCH_TRAINING. Former sets the number of episodes undertaken during training. Latter toggles whether the user views the agent plaing the game during training
+
 ### Hyperparameters:
 
 * GAMMA = 0.95
@@ -24,6 +30,8 @@ This is a fork of gsurma's repo, which was a DQN solution to the cartpole enviro
 * EXPLORATION_MAX = 1.0
 * EXPLORATION_MIN = 0.01
 * EXPLORATION_DECAY = 0.995
+
+### Other parameters
 * NUM_EPISODES=100
 * WATCH_TRAINING=False
 
