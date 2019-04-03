@@ -2,18 +2,18 @@
   <img src="assets/cartpole_icon_web.png" width="300">
 </h3>
 
-# Cartpole
+# DQN implementation - environment generalized
+I've found it frustrating that the algorithm implementations I've come across can't be trained on different environments straight out of the box. Here I modify an implementation of DQN such that it can run on any environment (that has a discrete action space), simply by changing the environment name. 
 
-Reinforcement Learning solution of the [OpenAI's Cartpole](https://gym.openai.com/envs/CartPole-v0/).
+Environments with non-discrete action spaces were not accounted for because DQN cannot be trained on such environments.
 
-Check out corresponding Medium article: [Cartpole - Introduction to Reinforcement Learning (DQN - Deep Q-Learning)](https://towardsdatascience.com/cartpole-introduction-to-reinforcement-learning-ed0eb5b58288)
+This is a fork of gsurma's repo, which was a DQN solution to the cartpole environment. Thanks gsurma.
 
-## About
-
-> A pole is attached by an un-actuated joint to a cart, which moves along a frictionless track. The system is controlled by applying a force of +1 or -1 to the cart. The pendulum starts upright, and the goal is to prevent it from falling over. A reward of +1 is provided for every timestep that the pole remains upright. The episode ends when the pole is more than 15 degrees from vertical, or the cart moves more than 2.4 units from the center. [source](https://gym.openai.com/envs/CartPole-v0/)
-
-## DQN
-Standard DQN with Experience Replay.
+### Changes made to create ability to generalize between environments
+* Added a layer to the neural network called **Flatten()**. This layer transforms the dimensionality of the data in our neural network from whatever it may be in in the input layer, to one dimension in the next hidden layer.
+* Created the function **reshape_dims** which finds the dimensions of the environment's observation space, which is used to reshape the state vector after every step.
+* Created the function **find_input_shape** which finds the required shape of input layer of the neural network, based on the dimensionality of the observation space.
+* Created an exception which is called when the dimensionality of the action space is not discrete.
 
 ### Hyperparameters:
 
@@ -24,31 +24,22 @@ Standard DQN with Experience Replay.
 * EXPLORATION_MAX = 1.0
 * EXPLORATION_MIN = 0.01
 * EXPLORATION_DECAY = 0.995
+* NUM_EPISODES=100
+* WATCH_TRAINING=False
 
 ### Model structure:
+DQN with experience relay, and batch normalization.
 
-1. Dense layer - input: **4**, output: **24**, activation: **relu**
+1. Dense layer - input: **Observation space shape**, output: **24**, activation: **relu**
 2. Dense layer - input **24**, output: **24**, activation: **relu**
-3. Dense layer - input **24**, output: **2**, activation: **linear**
+3. Dense layer - input **24**, output: **Action space shape**, activation: **linear**
 
 * **MSE** loss function
 * **Adam** optimizer
-
-
-## Performance
-
-> CartPole-v0 defines "solving" as getting average reward of 195.0 over 100 consecutive trials. [source](https://gym.openai.com/envs/CartPole-v0/)
-> 
 
 ##### Example trial gif
 
 <img src="assets/cartpole_example.gif" width="200">
 
 
-##### Example trial chart
 
-<img src="scores/scores.png">
-
-##### Solved trials chart
-
-<img src="scores/solved.png">
