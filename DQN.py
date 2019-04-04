@@ -4,7 +4,7 @@ import numpy as np
 from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import Dense, Flatten, BatchNormalization,Activation
 from tensorflow.keras.optimizers import Adam
-from score_logger import ScoreLogger
+from scores.score_logger import ScoreLogger
 
 ENV_NAME = "TimePilot-ram-v0"
 
@@ -15,7 +15,7 @@ BATCH_SIZE = 20
 EXPLORATION_MAX = 1.0
 EXPLORATION_MIN = 0.01
 EXPLORATION_DECAY = 0.995
-NUM_EPISODES=100
+NUM_EPISODES=2
 WATCH_TRAINING=False
 
 class DQNSolver:
@@ -136,7 +136,7 @@ def testing(dqn_solver):
         state = state.reshape(dims)
     while True:
         step+=1
-        print(step)
+        
         env.render()
         action=dqn_solver.act(state)
         next_state,reward,terminal,info=env.step(action)
