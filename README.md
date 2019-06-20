@@ -1,5 +1,5 @@
 <h3 align="center">
-  <img src="assets/cartpole_icon_web.png" width="300">
+  <img src="assets/cartpole_example.gif" width="300">
 </h3>
 
 # DQN implementation - environment generalized
